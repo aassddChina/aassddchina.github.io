@@ -1,1 +1,57 @@
-<p> aassdd_HOK </p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>闪烁文字</title>
+    <style>
+        /* 设置页面样式 */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* 黑色背景 */
+            color: white;
+            font-family: Arial, sans-serif;
+            cursor: url('pointer.png'), auto; /* 自定义鼠标样式 */
+        }
+
+        /* 闪烁文字样式 */
+        .blinking-text {
+            font-size: 10em; /* 超大字体 */
+            font-weight: bold;
+            animation: blink 1s infinite; /* 闪烁动画 */
+        }
+
+        /* 小字样式 */
+        .small-text {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #ccc; /* 浅灰色 */
+        }
+
+        /* 定义闪烁动画 */
+        @keyframes blink {
+            0% { color: red; }
+            25% { color: yellow; }
+            50% { color: blue; }
+            75% { color: green; }
+            100% { color: red; }
+        }
+
+        /* 鼠标悬停效果 */
+        .blinking-text:hover, .small-text:hover {
+            cursor: url('pointer-hover.png'), pointer; /* 悬停时鼠标样式 */
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="blinking-text">AASSDD</div>
+        <div class="small-text">aassdd123001@outlook.com</div>
+    </div>
+</body>
+</html>
