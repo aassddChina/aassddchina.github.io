@@ -170,18 +170,26 @@
         // 监听点击事件
         let clickCount = 0;
         let longPressTimer;
+        let resetTimer;
 
         document.body.addEventListener('click', () => {
             clickCount++;
             if (clickCount === 3) {
+                // 启动长按计时器
                 longPressTimer = setTimeout(() => {
                     clearPage();
                 }, 2000); // 长按2秒
             }
+
+            // 重置点击计数器
+            clearTimeout(resetTimer);
+            resetTimer = setTimeout(() => {
+                clickCount = 0; // 2秒后重置点击计数器
+            }, 2000);
         });
 
         document.body.addEventListener('mouseup', () => {
-            clearTimeout(longPressTimer);
+            clearTimeout(longPressTimer); // 取消长按计时器
         });
 
         // 清空页面并显示新内容
