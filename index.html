@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>闪烁文字</title>
     <style>
-        /* 设置页面样式 */
+        /* 全局样式 */
         body {
             margin: 0;
             padding: 0;
@@ -17,6 +17,7 @@
             color: white;
             font-family: Arial, sans-serif;
             cursor: url('pointer.png'), auto; /* 自定义鼠标样式 */
+            user-select: none; /* 禁止文字选择 */
             transition: background-color 2s ease; /* 背景颜色过渡效果 */
         }
 
@@ -37,6 +38,13 @@
             border-right: 2px solid #ccc; /* 打字光标 */
         }
 
+        /* 时间显示样式 */
+        .time-text {
+            font-size: 1.2em;
+            color: #aaa; /* 浅灰色 */
+            margin-bottom: 20px;
+        }
+
         /* 定义闪烁动画 */
         @keyframes blink {
             0% { color: red; }
@@ -53,6 +61,9 @@
             }
             .small-text {
                 font-size: 1em; /* 手机端小字缩小 */
+            }
+            .time-text {
+                font-size: 1em; /* 手机端时间字体缩小 */
             }
         }
 
@@ -78,6 +89,7 @@
 </head>
 <body>
     <div class="content">
+        <div class="time-text" id="time-text"></div>
         <div class="blinking-text">AASSDD</div>
         <div class="small-text" id="typing-text"></div>
     </div>
@@ -100,6 +112,7 @@
 
         // 获取显示文字的 DOM 元素
         const typingText = document.getElementById("typing-text");
+        const timeText = document.getElementById("time-text");
 
         // 定义打字速度和停顿时间
         const typingSpeed = 100; // 打字速度（毫秒）
@@ -131,6 +144,22 @@
         // 启动打字效果
         typeEffect();
 
+        // 更新时间显示
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            timeText.textContent = `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+        }
+
+        // 每秒更新时间
+        setInterval(updateTime, 1000);
+        updateTime(); // 初始化时间
+
         // 监听点击事件
         let clickCount = 0;
         let longPressTimer;
@@ -156,8 +185,8 @@
             content.style.display = 'none';
             newContent.style.display = 'block';
 
-            // 变换背景颜色
-            const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1'];
+            // 变换背景颜色（避免粉色）
+            const colors = ['#ff5733', '#33ff57', '#3357ff', '#ffcc00']; // 使用橙色、绿色、蓝色、黄色
             let currentIndex = 0;
 
             setInterval(() => {
