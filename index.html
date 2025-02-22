@@ -17,6 +17,7 @@
             color: white;
             font-family: Arial, sans-serif;
             cursor: url('pointer.png'), auto; /* 自定义鼠标样式 */
+            transition: background-color 2s ease; /* 背景颜色过渡效果 */
         }
 
         /* 闪烁文字样式 */
@@ -54,12 +55,38 @@
                 font-size: 1em; /* 手机端小字缩小 */
             }
         }
+
+        /* 新内容样式 */
+        .new-content {
+            display: none; /* 初始隐藏 */
+            text-align: center;
+        }
+
+        .new-content a {
+            display: block;
+            font-size: 3em;
+            margin: 20px 0;
+            color: white;
+            text-decoration: none;
+            transition: color 0.5s ease;
+        }
+
+        .new-content a:hover {
+            color: #ffcc00; /* 鼠标悬停颜色 */
+        }
     </style>
 </head>
 <body>
     <div class="content">
         <div class="blinking-text">AASSDD</div>
         <div class="small-text" id="typing-text"></div>
+    </div>
+
+    <div class="new-content" id="new-content">
+        <a href="https://deepseek.com" target="_blank">DeepSeek</a>
+        <a href="https://bilibili.com" target="_blank">Bilibili</a>
+        <a href="https://moyu.games" target="_blank">摸鱼</a>
+        <a href="https://github.com" target="_blank">GitHub</a>
     </div>
 
     <script>
@@ -103,6 +130,41 @@
 
         // 启动打字效果
         typeEffect();
+
+        // 监听点击事件
+        let clickCount = 0;
+        let longPressTimer;
+
+        document.body.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 3) {
+                longPressTimer = setTimeout(() => {
+                    clearPage();
+                }, 2000); // 长按2秒
+            }
+        });
+
+        document.body.addEventListener('mouseup', () => {
+            clearTimeout(longPressTimer);
+        });
+
+        // 清空页面并显示新内容
+        function clearPage() {
+            const content = document.querySelector('.content');
+            const newContent = document.getElementById('new-content');
+
+            content.style.display = 'none';
+            newContent.style.display = 'block';
+
+            // 变换背景颜色
+            const colors = ['#ff5733', '#33ff57', '#3357ff', '#ff33a1'];
+            let currentIndex = 0;
+
+            setInterval(() => {
+                document.body.style.backgroundColor = colors[currentIndex];
+                currentIndex = (currentIndex + 1) % colors.length;
+            }, 2000); // 每2秒变换一次背景颜色
+        }
     </script>
 </body>
 </html>
