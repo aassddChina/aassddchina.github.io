@@ -31,6 +31,9 @@
             font-size: 1.5em;
             margin-top: 20px;
             color: #ccc; /* 浅灰色 */
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden; /* 隐藏溢出内容 */
+            border-right: 2px solid #ccc; /* 打字光标 */
         }
 
         /* 定义闪烁动画 */
@@ -42,16 +45,64 @@
             100% { color: red; }
         }
 
-        /* 鼠标悬停效果 */
-        .blinking-text:hover, .small-text:hover {
-            cursor: url('pointer-hover.png'), pointer; /* 悬停时鼠标样式 */
+        /* 响应式设计：针对手机屏幕 */
+        @media (max-width: 600px) {
+            .blinking-text {
+                font-size: 5em; /* 手机端字体缩小 */
+            }
+            .small-text {
+                font-size: 1em; /* 手机端小字缩小 */
+            }
         }
     </style>
 </head>
 <body>
     <div class="content">
         <div class="blinking-text">AASSDD</div>
-        <div class="small-text">aassdd123001@outlook.com</div>
+        <div class="small-text" id="typing-text"></div>
     </div>
+
+    <script>
+        // 定义要显示的文字列表
+        const texts = [
+            "aassdd123001@outlook.com",
+            "aassdd_china@outlook.com",
+            "HOK:aassdd_China",
+            "HOK:aassdd_china"
+        ];
+
+        // 获取显示文字的 DOM 元素
+        const typingText = document.getElementById("typing-text");
+
+        // 定义打字速度和停顿时间
+        const typingSpeed = 100; // 打字速度（毫秒）
+        const pauseTime = 1000; // 停顿时间（毫秒）
+
+        // 打字效果函数
+        async function typeEffect() {
+            for (let i = 0; i < texts.length; i++) {
+                const text = texts[i];
+                // 打字效果
+                for (let j = 0; j <= text.length; j++) {
+                    typingText.textContent = text.slice(0, j);
+                    await new Promise(resolve => setTimeout(resolve, typingSpeed));
+                }
+                // 停顿一秒
+                await new Promise(resolve => setTimeout(resolve, pauseTime));
+                // 删除效果
+                for (let j = text.length; j >= 0; j--) {
+                    typingText.textContent = text.slice(0, j);
+                    await new Promise(resolve => setTimeout(resolve, typingSpeed / 2));
+                }
+                // 停顿一秒
+                await new Promise(resolve => setTimeout(resolve, pauseTime));
+            }
+            // 循环播放
+            typeEffect();
+        }
+
+        // 启动打字效果
+        typeEffect();
+    </script>
 </body>
 </html>
