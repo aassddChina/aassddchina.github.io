@@ -95,14 +95,19 @@
 
         /* 按钮样式 */
         .nav-button {
-            font-size: 1.5em;
+            font-size: 1em;
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             background-color: #333;
             color: white;
             border: none;
+            border-radius: 20px; /* 圆角 */
             cursor: pointer;
             transition: background-color 0.3s ease;
+            position: fixed; /* 固定位置 */
+            bottom: 20px; /* 距离底部20px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 水平居中 */
         }
 
         .nav-button:hover {
@@ -117,7 +122,7 @@
         <div class="blinking-text">AASSDD</div>
         <div class="small-text" id="typing-text"></div>
         <!-- 跳转按钮（初始隐藏） -->
-        <button class="nav-button" id="go-to-second-page" style="display: none;">跳转到第二页</button>
+        <button class="nav-button" id="go-to-second-page" style="display: none;">跳转</button>
     </div>
 
     <!-- 第二页内容 -->
@@ -127,7 +132,7 @@
         <a href="https://moyu.games" target="_blank">摸鱼</a>
         <a href="https://github.com" target="_blank">GitHub</a>
         <!-- 返回按钮 -->
-        <button class="nav-button" id="go-to-first-page">返回第一页</button>
+        <button class="nav-button" id="go-to-first-page">返回</button>
     </div>
 
     <script>
@@ -239,6 +244,9 @@
 
             content.style.display = 'block';
             newContent.style.display = 'none';
+
+            // 恢复黑色背景
+            document.body.style.backgroundColor = '#000';
 
             // 显示跳转按钮
             document.getElementById("go-to-second-page").style.display = 'block';
