@@ -16,8 +16,9 @@
             background-color: #000; /* 黑色背景 */
             color: white;
             font-family: Arial, sans-serif;
-            cursor: url('pointer.png'), auto; /* 自定义鼠标样式 */
+            cursor: none; /* 隐藏默认光标 */
             user-select: none; /* 禁止文字选择 */
+            overflow: hidden; /* 隐藏滚动条 */
         }
 
         /* 内容容器 */
@@ -43,6 +44,10 @@
             font-size: 10em; /* 超大字体 */
             font-weight: bold;
             animation: blink 1s infinite; /* 闪烁动画 */
+            position: fixed; /* 固定位置 */
+            top: 50%; /* 垂直居中 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, -50%); /* 居中 */
         }
 
         /* 小字样式 */
@@ -53,6 +58,10 @@
             white-space: nowrap; /* 防止换行 */
             overflow: hidden; /* 隐藏溢出内容 */
             border-right: 2px solid #ccc; /* 打字光标 */
+            position: fixed; /* 固定位置 */
+            top: 60%; /* 距离顶部60% */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 水平居中 */
         }
 
         /* 定义闪烁动画 */
@@ -116,9 +125,63 @@
         .nav-button:hover {
             background-color: #555; /* 鼠标悬停背景颜色 */
         }
+
+        /* 动态光标 */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 加载动画 */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            border: 4px solid #fff;
+            border-top: 4px solid #ffcc00;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 暗黑模式/亮色模式 */
+        .light-mode {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .light-mode .nav-button {
+            background-color: #ddd;
+            color: #000;
+        }
     </style>
 </head>
 <body>
+    <!-- 加载动画 -->
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+
     <!-- 时间显示 -->
     <div class="time-text" id="time-text"></div>
 
@@ -139,6 +202,15 @@
         <!-- 返回按钮 -->
         <button class="nav-button" id="go-to-first-page">返回</button>
     </div>
+
+    <!-- 动态光标 -->
+    <div id="custom-cursor" class="custom-cursor"></div>
+
+    <!-- 背景音乐 -->
+    <audio id="bg-music" loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+        您的浏览器不支持音频播放。
+    </audio>
 
     <script>
         // 定义要显示的文字列表
@@ -253,6 +325,31 @@
             content.style.display = 'none';
             newContent.style.display = 'block';
         });
+
+        // 动态光标
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.getElementById('custom-cursor');
+            cursor.style.left = `${e.pageX}px`;
+            cursor.style.top = `${e.pageY}px`;
+        });
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('go-to-first-page').click();
+            } else if (e.key === 'Enter') {
+                document.getElementById('go-to-second-page').click();
+            }
+        });
+
+        // 加载完成后隐藏加载动画
+        window.addEventListener('load', () => {
+            document.getElementById('loading').style.display = 'none';
+        });
+
+        // 背景音乐
+        const bgMusic = document.getElementById('bg-music');
+        bgMusic.play(); // 自动播放背景音乐
     </script>
 </body>
 </html>
