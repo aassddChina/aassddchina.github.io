@@ -18,12 +18,24 @@
             font-family: Arial, sans-serif;
             cursor: url('pointer.png'), auto; /* 自定义鼠标样式 */
             user-select: none; /* 禁止文字选择 */
-            transition: background-color 2s ease; /* 背景颜色过渡效果 */
         }
 
         /* 内容容器 */
         .content {
             text-align: center; /* 内容居中 */
+        }
+
+        /* 时间显示样式 */
+        .time-text {
+            font-size: 1.2em;
+            color: #aaa; /* 浅灰色 */
+            margin-bottom: 20px;
+            width: 100%; /* 宽度占满 */
+            text-align: center; /* 文本居中 */
+            position: fixed; /* 固定位置 */
+            top: 20px; /* 距离顶部20px */
+            left: 50%; /* 水平居中 */
+            transform: translateX(-50%); /* 水平居中 */
         }
 
         /* 闪烁文字样式 */
@@ -41,15 +53,6 @@
             white-space: nowrap; /* 防止换行 */
             overflow: hidden; /* 隐藏溢出内容 */
             border-right: 2px solid #ccc; /* 打字光标 */
-        }
-
-        /* 时间显示样式 */
-        .time-text {
-            font-size: 1.2em;
-            color: #aaa; /* 浅灰色 */
-            margin-bottom: 20px;
-            width: 100%; /* 宽度占满 */
-            text-align: center; /* 文本居中 */
         }
 
         /* 定义闪烁动画 */
@@ -116,9 +119,11 @@
     </style>
 </head>
 <body>
+    <!-- 时间显示 -->
+    <div class="time-text" id="time-text"></div>
+
     <!-- 第一页内容 -->
     <div class="content" id="first-page">
-        <div class="time-text" id="time-text"></div>
         <div class="blinking-text">AASSDD</div>
         <div class="small-text" id="typing-text"></div>
         <!-- 跳转按钮（初始隐藏） -->
@@ -226,15 +231,6 @@
 
             content.style.display = 'none';
             newContent.style.display = 'block';
-
-            // 变换背景颜色（避免粉色）
-            const colors = ['#ff5733', '#33ff57', '#3357ff', '#ffcc00']; // 使用橙色、绿色、蓝色、黄色
-            let currentIndex = 0;
-
-            setInterval(() => {
-                document.body.style.backgroundColor = colors[currentIndex];
-                currentIndex = (currentIndex + 1) % colors.length;
-            }, 2000); // 每2秒变换一次背景颜色
         }
 
         // 返回第一页
@@ -244,9 +240,6 @@
 
             content.style.display = 'block';
             newContent.style.display = 'none';
-
-            // 恢复黑色背景
-            document.body.style.backgroundColor = '#000';
 
             // 显示跳转按钮
             document.getElementById("go-to-second-page").style.display = 'block';
