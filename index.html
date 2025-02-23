@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,83 +14,114 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000; /* 黑色背景 */
+            background-color: #000;
             color: white;
             font-family: Arial, sans-serif;
-            cursor: none; /* 隐藏默认光标 */
-            user-select: none; /* 禁止文字选择 */
-            overflow: hidden; /* 隐藏滚动条 */
+            cursor: none;
+            user-select: none;
+            overflow: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        /* 动态背景 */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         /* 内容容器 */
         .content {
-            text-align: center; /* 内容居中 */
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
         /* 时间显示样式 */
         .time-text {
             font-size: 1.2em;
-            color: #aaa; /* 浅灰色 */
+            color: #aaa;
             margin-bottom: 20px;
-            width: 100%; /* 宽度占满 */
-            text-align: center; /* 文本居中 */
-            position: fixed; /* 固定位置 */
-            top: 20px; /* 距离顶部20px */
-            left: 50%; /* 水平居中 */
-            transform: translateX(-50%); /* 水平居中 */
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         /* 闪烁文字样式 */
         .blinking-text {
-            font-size: 10em; /* 超大字体 */
+            font-size: 10em;
             font-weight: bold;
-            animation: blink 1s infinite; /* 闪烁动画 */
-            position: fixed; /* 固定位置 */
-            top: 50%; /* 垂直居中 */
-            left: 50%; /* 水平居中 */
-            transform: translate(-50%, -50%); /* 居中 */
+            animation: blink 1s infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         /* 小字样式 */
         .small-text {
             font-size: 1.5em;
             margin-top: 20px;
-            color: #ccc; /* 浅灰色 */
-            white-space: nowrap; /* 防止换行 */
-            overflow: hidden; /* 隐藏溢出内容 */
-            border-right: 2px solid #ccc; /* 打字光标 */
-            position: fixed; /* 固定位置 */
-            top: 60%; /* 距离顶部60% */
-            left: 50%; /* 水平居中 */
-            transform: translateX(-50%); /* 水平居中 */
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #ccc;
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         /* 定义闪烁动画 */
         @keyframes blink {
-            0% { color: red; }
-            25% { color: yellow; }
-            50% { color: blue; }
-            75% { color: green; }
-            100% { color: red; }
+            0% {
+                color: red;
+            }
+
+            25% {
+                color: yellow;
+            }
+
+            50% {
+                color: blue;
+            }
+
+            75% {
+                color: green;
+            }
+
+            100% {
+                color: red;
+            }
         }
 
         /* 响应式设计：针对手机屏幕 */
         @media (max-width: 600px) {
             .blinking-text {
-                font-size: 5em; /* 手机端字体缩小 */
+                font-size: 5em;
             }
+
             .small-text {
-                font-size: 1em; /* 手机端小字缩小 */
+                font-size: 1em;
             }
+
             .time-text {
-                font-size: 1em; /* 手机端时间字体缩小 */
+                font-size: 1em;
             }
         }
 
         /* 新内容样式 */
         .new-content {
-            display: none; /* 初始隐藏 */
+            display: none;
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
         }
 
         .new-content a {
@@ -102,7 +134,7 @@
         }
 
         .new-content a:hover {
-            color: #ffcc00; /* 鼠标悬停颜色 */
+            color: #ffcc00;
         }
 
         /* 按钮样式 */
@@ -113,17 +145,17 @@
             background-color: #333;
             color: white;
             border: none;
-            border-radius: 20px; /* 圆角 */
+            border-radius: 20px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            position: fixed; /* 固定位置 */
-            bottom: 20px; /* 距离底部20px */
-            left: 50%; /* 水平居中 */
-            transform: translateX(-50%); /* 水平居中 */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .nav-button:hover {
-            background-color: #555; /* 鼠标悬停背景颜色 */
+            background-color: #555;
         }
 
         /* 动态光标 */
@@ -148,6 +180,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 999;
         }
 
         .spinner {
@@ -160,8 +193,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* 暗黑模式/亮色模式 */
@@ -174,9 +212,53 @@
             background-color: #ddd;
             color: #000;
         }
+
+        /* 名言样式 */
+        .quote {
+            position: fixed;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1em;
+            color: #aaa;
+            text-align: center;
+            width: 80%;
+        }
+
+        /* 社交分享按钮 */
+        .social-sharing {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+
+        .social-sharing a {
+            display: inline-block;
+            margin: 0 5px;
+            color: white;
+            font-size: 1.5em;
+            transition: color 0.3s ease;
+        }
+
+        .social-sharing a:hover {
+            color: #ffcc00;
+        }
+
+        /* 访客计数器 */
+        .visitor-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1em;
+            color: #aaa;
+        }
     </style>
 </head>
+
 <body>
+    <!-- 动态背景 -->
+    <div id="particles-js"></div>
+
     <!-- 加载动画 -->
     <div id="loading">
         <div class="spinner"></div>
@@ -203,16 +285,142 @@
         <button class="nav-button" id="go-to-first-page">返回</button>
     </div>
 
+    <!-- 名言 -->
+    <div class="quote" id="quote"></div>
+
+    <!-- 社交分享按钮 -->
+    <div class="social-sharing">
+        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-weibo"></i></a>
+    </div>
+
+    <!-- 访客计数器 -->
+    <div class="visitor-counter" id="visitor-counter"></div>
+
+    <!-- 暗黑模式切换按钮 -->
+    <button class="nav-button" id="dark-mode-toggle" style="top: 20px; bottom: auto;">切换模式</button>
+
     <!-- 动态光标 -->
     <div id="custom-cursor" class="custom-cursor"></div>
 
-    <!-- 背景音乐 -->
-    <audio id="bg-music" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
-        您的浏览器不支持音频播放。
-    </audio>
-
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
     <script>
+        // 动态背景配置
+        particlesJS.load('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 4,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        }, function () {
+            console.log('callback - particles.js config loaded');
+        });
+
         // 定义要显示的文字列表
         const texts = [
             "aassdd123001@outlook.com",
@@ -275,6 +483,7 @@
         let clickCount = 0;
         let longPressTimer;
         let resetTimer;
+        let isShortcutEnabled = false; // 是否启用快捷键
 
         document.body.addEventListener('click', () => {
             clickCount++;
@@ -282,6 +491,7 @@
                 // 启动长按计时器
                 longPressTimer = setTimeout(() => {
                     clearPage();
+                    isShortcutEnabled = true; // 启用快捷键
                 }, 2000); // 长按2秒
             }
 
@@ -301,8 +511,14 @@
             const content = document.getElementById("first-page");
             const newContent = document.getElementById("new-content");
 
-            content.style.display = 'none';
-            newContent.style.display = 'block';
+            content.style.opacity = 0;
+            setTimeout(() => {
+                content.style.display = 'none';
+                newContent.style.display = 'block';
+                setTimeout(() => {
+                    newContent.style.opacity = 1;
+                }, 100);
+            }, 500);
         }
 
         // 返回第一页
@@ -310,8 +526,14 @@
             const content = document.getElementById("first-page");
             const newContent = document.getElementById("new-content");
 
-            content.style.display = 'block';
-            newContent.style.display = 'none';
+            newContent.style.opacity = 0;
+            setTimeout(() => {
+                newContent.style.display = 'none';
+                content.style.display = 'block';
+                setTimeout(() => {
+                    content.style.opacity = 1;
+                }, 100);
+            }, 500);
 
             // 显示跳转按钮
             document.getElementById("go-to-second-page").style.display = 'block';
@@ -319,22 +541,20 @@
 
         // 跳转到第二页
         document.getElementById("go-to-second-page").addEventListener('click', () => {
-            const content = document.getElementById("first-page");
-            const newContent = document.getElementById("new-content");
-
-            content.style.display = 'none';
-            newContent.style.display = 'block';
+            clearPage();
         });
 
         // 动态光标
         document.addEventListener('mousemove', (e) => {
             const cursor = document.getElementById('custom-cursor');
-            cursor.style.left = `${e.pageX}px`;
+                      cursor.style.left = `${e.pageX}px`;
             cursor.style.top = `${e.pageY}px`;
         });
 
-        // 键盘快捷键
+        // 键盘快捷键（仅在触发暗号后启用）
         document.addEventListener('keydown', (e) => {
+            if (!isShortcutEnabled) return; // 未触发暗号时禁用快捷键
+
             if (e.key === 'Escape') {
                 document.getElementById('go-to-first-page').click();
             } else if (e.key === 'Enter') {
@@ -347,9 +567,42 @@
             document.getElementById('loading').style.display = 'none';
         });
 
-        // 背景音乐
-        const bgMusic = document.getElementById('bg-music');
-        bgMusic.play(); // 自动播放背景音乐
+        // 随机名言
+        const quotes = [
+            "生活就像海洋，只有意志坚强的人，才能到达彼岸。——马克思",
+            "人的价值蕴藏在人的才能之中。——马克思",
+            "时间最不偏私，给任何人都是二十四小时；时间也最偏私，给任何人都不是二十四小时。——赫胥黎",
+            "成功的关键在于相信自己有成功的能力。——拿破仑·希尔",
+            "书是人类进步的阶梯。——高尔基"
+        ];
+        const quoteElement = document.getElementById('quote');
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteElement.textContent = quotes[randomIndex];
+
+        // 暗黑模式切换
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            const isLightMode = body.classList.contains('light-mode');
+            if (isLightMode) {
+                darkModeToggle.textContent = '切换到暗黑模式';
+            } else {
+                darkModeToggle.textContent = '切换到亮色模式';
+            }
+        });
+
+        // 访客计数器
+        const visitorCounter = document.getElementById('visitor-counter');
+        let visitorCount = localStorage.getItem('visitorCount');
+        if (!visitorCount) {
+            visitorCount = 1;
+        } else {
+            visitorCount = parseInt(visitorCount) + 1;
+        }
+        localStorage.setItem('visitorCount', visitorCount);
+        visitorCounter.textContent = `访客数: ${visitorCount}`;
     </script>
 </body>
+
 </html>
