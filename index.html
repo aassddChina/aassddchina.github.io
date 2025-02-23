@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>闪烁文字</title>
+    <title>AASSDD</title>
     <style>
         /* 全局样式 */
         body {
@@ -92,20 +92,42 @@
         .new-content a:hover {
             color: #ffcc00; /* 鼠标悬停颜色 */
         }
+
+        /* 按钮样式 */
+        .nav-button {
+            font-size: 1.5em;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #555; /* 鼠标悬停背景颜色 */
+        }
     </style>
 </head>
 <body>
-    <div class="content">
+    <!-- 第一页内容 -->
+    <div class="content" id="first-page">
         <div class="time-text" id="time-text"></div>
         <div class="blinking-text">AASSDD</div>
         <div class="small-text" id="typing-text"></div>
+        <!-- 跳转按钮（初始隐藏） -->
+        <button class="nav-button" id="go-to-second-page" style="display: none;">跳转到第二页</button>
     </div>
 
+    <!-- 第二页内容 -->
     <div class="new-content" id="new-content">
         <a href="https://deepseek.com" target="_blank">DeepSeek</a>
         <a href="https://bilibili.com" target="_blank">Bilibili</a>
         <a href="https://moyu.games" target="_blank">摸鱼</a>
         <a href="https://github.com" target="_blank">GitHub</a>
+        <!-- 返回按钮 -->
+        <button class="nav-button" id="go-to-first-page">返回第一页</button>
     </div>
 
     <script>
@@ -194,8 +216,8 @@
 
         // 清空页面并显示新内容
         function clearPage() {
-            const content = document.querySelector('.content');
-            const newContent = document.getElementById('new-content');
+            const content = document.getElementById("first-page");
+            const newContent = document.getElementById("new-content");
 
             content.style.display = 'none';
             newContent.style.display = 'block';
@@ -209,6 +231,27 @@
                 currentIndex = (currentIndex + 1) % colors.length;
             }, 2000); // 每2秒变换一次背景颜色
         }
+
+        // 返回第一页
+        document.getElementById("go-to-first-page").addEventListener('click', () => {
+            const content = document.getElementById("first-page");
+            const newContent = document.getElementById("new-content");
+
+            content.style.display = 'block';
+            newContent.style.display = 'none';
+
+            // 显示跳转按钮
+            document.getElementById("go-to-second-page").style.display = 'block';
+        });
+
+        // 跳转到第二页
+        document.getElementById("go-to-second-page").addEventListener('click', () => {
+            const content = document.getElementById("first-page");
+            const newContent = document.getElementById("new-content");
+
+            content.style.display = 'none';
+            newContent.style.display = 'block';
+        });
     </script>
 </body>
 </html>
